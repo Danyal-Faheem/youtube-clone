@@ -7,7 +7,7 @@ export interface Video {
 
 export interface ID {
   kind: string;
-  channelId: string;
+  videoId: string;
 }
 
 export interface Snippet {

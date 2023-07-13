@@ -3,6 +3,7 @@ import { NavigationBar } from "./Navbar";
 import axios from "axios";
 import { Videos } from "./Videos";
 import { Video } from "../interfaces/videos";
+import DisplayVideo from "./DisplayVideo";
 
 // Our main component which encompasses other functions
 export const Home = () => {
@@ -10,6 +11,9 @@ export const Home = () => {
   const [results, setResults] = useState<Video[]>([]);
   // A flag to display the videos component after successful response
   const [displayVideos, setDisplayVideos] = useState<boolean>(false);
+  // to display clicked video
+  const [displayClickedVideo,setDisplayClickedVideo]=useState<boolean>(false);
+  const [clickedVideo,setClickedVideo]=useState<Video|null>(null);
 
   /* 
     Callback after search icon clicked
@@ -37,12 +41,24 @@ export const Home = () => {
         console.log(error);
       });
   };
+
+
+  const handleVideoClick=(clickedVideo:Video)=>{
+    setClickedVideo(clickedVideo);
+    setDisplayVideos(false);
+    setDisplayClickedVideo(true);
+
+
+
+  }
   return (
     <>
       {/*Display the Navigation Bar at all times */}
       <NavigationBar handleSubmit={handleSubmit} />
       {/*Only display videos component after search clicked*/}
-      {displayVideos && <Videos videos={results} />}
+      {displayVideos && <Videos videos={results} handleVideoClick={handleVideoClick}/>}
+
+      {displayClickedVideo && <DisplayVideo clickedVideo={clickedVideo} />}
     </>
   );
 };
