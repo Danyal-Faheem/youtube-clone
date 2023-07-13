@@ -20,16 +20,17 @@ export const Home = () => {
     await axios
       .get("https://www.googleapis.com/youtube/v3/search", {
         params: {
-          key: "AIzaSyAEWgzi2RaT-_XaUc5DbL3rcQ8jQVYqzrM",
+          key: process.env.REACT_APP_YOUTUBE_API_KEY,
           part: "snippet",
           type: "video",
           q: query,
+          maxResults: 50
         },
       })
       .then((response: any) => {
         // On success, set the results and instantiate the videos component
         setResults(response.data.items);
-        // console.log(results);
+        console.log(response);
         setDisplayVideos(true);
       })
       .catch((error) => {
