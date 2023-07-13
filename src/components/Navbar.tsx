@@ -20,7 +20,7 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
     // Utilizing simple bootstrap navbar here with a searchbox inside it
     <Navbar>
       <Navbar.Brand href="/">
-        <img src="logo.png" />
+        <img src="logo.png" alt="logo" />
         YouTube
       </Navbar.Brand>
       <Container>
