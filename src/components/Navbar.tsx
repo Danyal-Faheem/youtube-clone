@@ -17,7 +17,8 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
   };
 
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log("into the handle key down function");
     if (event.key === "Enter") {
       handleSubmit(query);
     }
@@ -37,7 +38,7 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
           aria-label="Search"
           value={query}
           onChange={handleChange}
-          onKeyDown={()=>handleKeyDown}
+          onKeyDown={handleKeyDown}
         />
         {/* OnClick, the props passed function will be called as a callback */}
         <Button onClick={() => handleSubmit(query)}  >
