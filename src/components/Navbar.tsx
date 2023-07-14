@@ -16,7 +16,6 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
     setQuery(e.currentTarget.value);
   };
 
-
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     console.log("into the handle key down function");
     if (event.key === "Enter") {
@@ -28,7 +27,7 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
     // Utilizing simple bootstrap navbar here with a searchbox inside it
     <Navbar bg="dark" sticky={"top"}>
       <Navbar.Brand href="/">
-        <img src={process.env.PUBLIC_URL+"/logo.png"} alt="logo" />
+        <img src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" />
         YouTube
       </Navbar.Brand>
       <Container>
@@ -41,7 +40,7 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
           onKeyDown={handleKeyDown}
         />
         {/* OnClick, the props passed function will be called as a callback */}
-        <Button onClick={() => handleSubmit(query)}  >
+        <Button onClick={() => handleSubmit(query)}>
           <FontAwesomeIcon icon={faSearch} />
         </Button>
       </Container>
