@@ -26,7 +26,7 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
 
   return (
     // Utilizing simple bootstrap navbar here with a searchbox inside it
-    <Navbar>
+    <Navbar bg="dark" sticky={"top"}>
       <Navbar.Brand href="/">
         <img src={process.env.PUBLIC_URL+"/logo.png"} alt="logo" />
         YouTube
