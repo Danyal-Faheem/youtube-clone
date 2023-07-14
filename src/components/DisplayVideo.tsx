@@ -1,6 +1,6 @@
-import React from 'react';
-import { Video } from '../interfaces/videos';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import React from "react";
+import { Video } from "../interfaces/videos";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 interface Props {
   clickedVideo: Video | null;
@@ -10,9 +10,9 @@ const DisplayVideo = ({ clickedVideo }: Props) => {
   if (!clickedVideo) {
     return null; // Return null if clickedVideo is null
   }
-console.log(clickedVideo.id.videoId);
-     const videoId = clickedVideo.id.videoId;
-   const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+  console.log(clickedVideo.id.videoId);
+  const videoId = clickedVideo.id.videoId;
+  const videoUrl = `https://www.youtube.com/embed/${videoId}`;
 
   return (
     <Card>

@@ -4,7 +4,6 @@ import { Home } from "./components/Home";
 import { Playback } from "./components/Playback";
 
 function App() {
-  
   return (
     <Routes>
       {/* Calling our Home component which is our main component on the root path */}
