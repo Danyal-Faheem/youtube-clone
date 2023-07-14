@@ -1,6 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
 import ReactPlayer from "react-player";
 
+import { useParams } from "react-router-dom";
+
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import RelativeTime from "@yaireo/relative-time";
