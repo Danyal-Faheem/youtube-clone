@@ -1,7 +1,7 @@
 import { Box, Card, CardMedia, Hidden, Stack, Typography } from "@mui/material";
 import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
-import { Video } from "../interfaces/videos";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { NavigationBar } from "./Navbar";
