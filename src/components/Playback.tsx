@@ -5,7 +5,6 @@ import axios from "axios";
 import { Comments } from "./Comments";
 import { RelatedVideos } from "./RelatedVideos";
 
-
 export interface PlaybackVideo {
   kind: string;
   etag: string;
@@ -77,6 +76,7 @@ export const Playback = ({ videoId }: any) => {
     console.log(id);
     setVideoID(id?.videoId || id);
   };
+
   console.log(playbackVideo?.snippet.publishedAt);
 
   return (
@@ -92,6 +92,7 @@ export const Playback = ({ videoId }: any) => {
           </Typography>
 
           {playbackVideo?.snippet.description.split("\n").map((line) => (
+
             <Typography mt={2} variant="subtitle1" key={line}>
               {line}
             </Typography>

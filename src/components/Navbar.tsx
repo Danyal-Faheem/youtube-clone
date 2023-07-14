@@ -40,7 +40,7 @@ export const NavigationBar = ({ handleSubmit }: navigationBar) => {
           onKeyDown={handleKeyDown}
         />
         {/* OnClick, the props passed function will be called as a callback */}
-        <Button onClick={() => handleSubmit(query)}>
+        <Button onClick={() => handleSubmit(query)}  >
           <FontAwesomeIcon icon={faSearch} />
         </Button>
       </Container>

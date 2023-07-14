@@ -59,3 +59,4 @@ export const RelatedVideos = ({ handleClick, videoId }: any) => {
     </Box>
   );
 };
+

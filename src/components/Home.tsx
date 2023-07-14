@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { NavigationBar } from "./Navbar";
 import axios from "axios";
@@ -10,13 +11,13 @@ export const Home = () => {
   // results are the json data we get from the api as response
   const [results, setResults] = useState<Video[]>([]);
   // A flag to display the videos component after successful response
+
   const [displayVideos, setDisplayVideos] = useState<boolean>(false);
   const [displayClickedVideo, setDisplayClickedVideo] =
     useState<boolean>(false);
   const [videoId, setVideoId] = useState<string | ID>("");
 
   // fetching random videos before search
-
   useEffect(() => {
     fetchRandomVideos();
   }, []);
@@ -41,8 +42,8 @@ export const Home = () => {
       console.log(error);
     }
   };
-
   // -------end of fetching random videos
+
   /* 
     Callback after search icon clicked
     Query is the actual string of words entered to search on youtube
@@ -62,6 +63,7 @@ export const Home = () => {
       .then((response: any) => {
         // On success, set the results and instantiate the videos component
         setResults(response.data.items);
+
         setDisplayVideos(true);
         setDisplayClickedVideo(false);
         console.log(response);
@@ -83,11 +85,12 @@ export const Home = () => {
       {/*Display the Navigation Bar at all times */}
       <NavigationBar handleSubmit={handleSubmit} />
       {/*Only display videos component after search clicked*/}
+
       {displayVideos && (
         <Videos videos={results} handleVideoClick={handleVideoClick} />
       )}
-
       {displayClickedVideo && <Playback videoId={videoId} />}
+
     </>
   );
 };
