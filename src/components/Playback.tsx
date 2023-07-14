@@ -1,9 +1,12 @@
-import { Box, Card, CardMedia, Hidden, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import ReactPlayer from "react-player";
-import { useParams } from "react-router-dom";
-import { Video } from "../interfaces/videos";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+import RelativeTime from "@yaireo/relative-time";
+import { Comments } from "./Comments";
+import { RelatedVideos } from "./RelatedVideos";
+import { useParams } from "react-router-dom";
 import { NavigationBar } from "./Navbar";
 
 export interface PlaybackVideo {
@@ -14,7 +17,7 @@ export interface PlaybackVideo {
 }
 
 export interface Snippet {
-  publishedAt: Date;
+  publishedAt: Date | undefined;
   channelId: string;
   title: string;
   description: string;
@@ -122,8 +125,10 @@ const vid = {
 
 export const Playback = () => {
   const [playbackVideo, setPlaybackVideo] = useState<PlaybackVideo>();
+  const relativeTime = new RelativeTime();
   const params = useParams();
-  const videoUrl = "https://www.youtube.com/watch?v=" + params.id;
+  const videoId = params.id;
+  const videoUrl = "https://www.youtube.com/watch?v=" + videoId;
   //   console.log(params.id, videoUrl);
 
   useEffect(() => {
@@ -133,7 +138,7 @@ export const Playback = () => {
           params: {
             key: process.env.REACT_APP_YOUTUBE_API_KEY,
             part: "snippet",
-            id: params.id,
+            id: videoId,
           },
         })
         .then((response: any) => {
@@ -144,27 +149,32 @@ export const Playback = () => {
           console.log(error);
         });
     fetchVideoDetails();
-  }, []);
+  }, [videoId]);
 
   const handleSubmit = (query: string) => {};
+  console.log(playbackVideo?.snippet.publishedAt);
 
   return (
     <>
-      <NavigationBar handleSubmit={handleSubmit} />
+      {/* <NavigationBar handleSubmit={handleSubmit} /> */}
       <Stack direction={{ xs: "column", md: "row" }}>
         <Box sx={{ height: 700, width: 1000, margin: 5, marginLeft: 10 }}>
           <ReactPlayer height={540} width={960} url={videoUrl} controls />
-          <Typography mt={2} variant="h5">
+          <Typography mt={2} variant="h4">
             {playbackVideo?.snippet.title}
           </Typography>
           <Typography mt={2}>
             <b>{playbackVideo?.snippet.channelTitle}</b>
           </Typography>
-          <Typography variant="subtitle1">
-            {playbackVideo?.snippet.description}
-          </Typography>
-          <p>{playbackVideo?.snippet.description}</p>
+
+          {playbackVideo?.snippet.description.split("\n").map((line) => (
+                        <Typography mt={2} variant="subtitle1" key={line}>
+              {line}
+            </Typography>
+          ))}
+          <Comments videoId={videoId}/>
         </Box>
+        <RelatedVideos videoId={videoId}/>
       </Stack>
     </>
   );

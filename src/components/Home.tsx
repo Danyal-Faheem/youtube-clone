@@ -1,20 +1,48 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { NavigationBar } from "./Navbar";
 import axios from "axios";
 import { Videos } from "./Videos";
 import { Video } from "../interfaces/videos";
-import DisplayVideo from "./DisplayVideo";
+import { useNavigate } from "react-router";
 
 // Our main component which encompasses other functions
 export const Home = () => {
   // results are the json data we get from the api as response
   const [results, setResults] = useState<Video[]>([]);
   // A flag to display the videos component after successful response
-  const [displayVideos, setDisplayVideos] = useState<boolean>(false);
-  // to display clicked video
-  const [displayClickedVideo,setDisplayClickedVideo]=useState<boolean>(false);
-  const [clickedVideo,setClickedVideo]=useState<Video|null>(null);
+  // const [displayVideos, setDisplayVideos] = useState<boolean>(false);
+  
 
+  const navigate=useNavigate();
+// fetching random videos before search
+
+
+useEffect(() => {
+  fetchRandomVideos();
+}, []);
+
+const fetchRandomVideos = async () => {
+  try {
+    const response = await axios.get(
+      "https://www.googleapis.com/youtube/v3/videos",
+      {
+        params: {
+          key: process.env.REACT_APP_YOUTUBE_API_KEY,
+          part: "snippet",
+          chart: "mostPopular",
+          maxResults: 50,
+        },
+      }
+    );
+    setResults(response.data.items);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+// -------end of fetching random videos
   /* 
     Callback after search icon clicked
     Query is the actual string of words entered to search on youtube
@@ -35,7 +63,7 @@ export const Home = () => {
         // On success, set the results and instantiate the videos component
         setResults(response.data.items);
         console.log(response);
-        setDisplayVideos(true);
+        // setDisplayVideos(true);
       })
       .catch((error) => {
         console.log(error);
@@ -44,21 +72,21 @@ export const Home = () => {
 
 
   const handleVideoClick=(clickedVideo:Video)=>{
-    setClickedVideo(clickedVideo);
-    setDisplayVideos(false);
-    setDisplayClickedVideo(true);
+    // console.log(clickedVideo);
+    // navigate(`/video/${clickedVideo.id.videoId}`);
+    const videoId = clickedVideo.id?.videoId || clickedVideo.id;
+  navigate(`/video/${videoId}`);
+  };
 
 
-
-  }
   return (
     <>
       {/*Display the Navigation Bar at all times */}
       <NavigationBar handleSubmit={handleSubmit} />
       {/*Only display videos component after search clicked*/}
-      {displayVideos && <Videos videos={results} handleVideoClick={handleVideoClick}/>}
+      {<Videos videos={results} handleVideoClick={handleVideoClick}/>}
 
-      {displayClickedVideo && <DisplayVideo clickedVideo={clickedVideo} />}
+      {/* {displayClickedVideo && <DisplayVideo clickedVideo={clickedVideo} />} */}
     </>
   );
 };
